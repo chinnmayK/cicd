@@ -11,17 +11,21 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/chinnmayK/cicd.git'
             }
         }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t $DOCKER_IMAGE:latest .'
+                    // Use 'bat' instead of 'sh' for Windows
+                    bat "docker build -t %DOCKER_IMAGE%:latest ."
                 }
             }
         }
+
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh 'docker run -d -p 8080:80 --name my-container $DOCKER_IMAGE:latest'
+                    // Use 'bat' instead of 'sh' for Windows
+                    bat "docker run -d -p 8080:80 --name my-container %DOCKER_IMAGE%:latest"
                 }
             }
         }
